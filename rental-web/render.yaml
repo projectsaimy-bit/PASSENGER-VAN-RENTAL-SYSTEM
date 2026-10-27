@@ -9,8 +9,8 @@ services:
     name: vanly-passenger-van-rental
     runtime: docker
     plan: free
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
+    dockerfilePath: ./rental-web/Dockerfile
+    dockerContext: ./rental-web
     envVars:
       - key: SPRING_DATASOURCE_URL
         value: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
