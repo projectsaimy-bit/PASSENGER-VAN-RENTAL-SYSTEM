@@ -1,0 +1,38 @@
+databases:
+  - name: vanly-db
+    databaseName: vanly
+    user: vanly_user
+    plan: free
+
+services:
+  - type: web
+    name: vanly-passenger-van-rental
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+      - key: DB_HOST
+        fromDatabase:
+          name: vanly-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: vanly-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: vanly-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: vanly-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: vanly-db
+          property: password
+      - key: H2_CONSOLE_ENABLED
+        value: "false"
